@@ -1,0 +1,33 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 2018-11-16 18:26:16 by Hibernate Tools 3.5.0.Final -->
+<hibernate-mapping>
+	<class name="com.yyt.hibernateHello.onetoone.Person" table="PERSON">
+		<id name="id" type="int">
+			<column name="ID" />
+			<generator class="native" />
+			
+		</id>
+		<property name="name" type="java.lang.String">
+			<column name="NAME" />
+		</property>
+		<property name="age" type="java.lang.String">
+			<column name="AGE" />
+		</property>
+		<property name="height" type="int">
+			<column name="HEIGHT" />
+		</property>
+		<!-- property-ref="person": 当关联的主键以外的字段，指定实体类的属性会关联到属性对应的字段 -->
+		<!-- 一对一主键:
+		此时：主键生成策略为foreign，设置属性
+		<generator class="foreign">
+			<param name="property">jacket</param>
+			</generator>
+		constrained="true"添加此属性,为表的主键添加一个外键约束
+		 -->
+		<one-to-one name="jacket" class="com.yyt.hibernateHello.onetoone.Jacket"
+			property-ref="person" >
+		</one-to-one>
+	</class>
+</hibernate-mapping>

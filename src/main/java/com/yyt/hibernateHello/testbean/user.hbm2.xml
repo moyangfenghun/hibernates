@@ -1,0 +1,55 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping package="com.yyt.hibernateHello.testbean">
+
+	<!-- dynamic-update="true":动态更新;select-before-update="true":更新前先查询如果没有变化则不更新;lazy="true":默认开启延迟检索,仅对sessison的laod方法有效 -->
+	<class name="user" table="USER" dynamic-update="true"
+		dynamic-insert="true" select-before-update="true" lazy="true">
+
+		<id name="id" type="int">
+			<column name="ID" />
+			<!-- 用户指定 -->
+			<generator class="assigned" />
+			<!-- 使用特定的高低算法生成主键，不依赖数据库 -->
+			<generator class="hilo">
+				<param name="table">hilotable</param>
+				<param name="column">next_value</param>
+				<param name="max_lo">10</param>
+			</generator>
+			<!-- 使用数据库底层的序列生成id，Oracle等数据支持 -->
+			<generator class="sequence">
+				<param name="sequence">new_id</param>
+			</generator>
+			<!-- 使用数据库底层标识符生成id,mysql等支持自增的数据库支持 -->
+			<generator class="identity"></generator>
+			<!-- 使用数据库本身的主键策略 -->
+			<generator class="native"></generator>
+		</id>
+		<!-- access="":访问策略，默认以get/set访问;formula="":指定派生值可以是sql或者计算;index="":索引 
+			；scale=""：oracle上用到的,小数精确度 ；unique="false"：唯一约束； update="true"：能否更新值 ； length:只能用于string -->
+		<property name="name" type="java.lang.String">
+			<column name="NAME" />
+		</property>
+		<property name="age" type="int">
+			<column name="AGE" />
+		</property>
+		<property name="sex" type="java.lang.String">
+			<column name="SEX" />
+		</property>
+		<property name="createDate" type="java.util.Date">
+			<column name="CREATEDATE" />
+		</property>
+		<!-- 组件 -->
+		<component name="className" class="">
+			<!-- 如果加上parent需要在属性中加入父类变量 -->
+			<parent name="user" />
+			<property name="propertyName">
+				column_name
+			</property>
+			<property name="propertyName">
+				column_name
+			</property>
+		</component>
+	</class>
+</hibernate-mapping>

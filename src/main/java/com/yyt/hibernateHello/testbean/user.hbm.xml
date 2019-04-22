@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping package="com.yyt.hibernateHello.testbean">
+
+	<!-- dynamic-update="true":动态更新,不更新的值可以为null;select-before-update="true":更新前先查询如果没有变化则不更新;lazy="true":默认开启延迟检索,仅对sessison的laod方法有效 -->
+	<class name="user" table="`USER`" dynamic-update="true"
+		dynamic-insert="true" >
+		<id name="id" type="java.lang.Integer">
+			<column name="ID" />
+			<generator class="native"></generator>
+		</id>
+		<!-- access="":访问策略，默认以get/set访问;formula="":指定派生值可以是sql或者计算;index="":索引 
+			；scale=""：oracle上用到的,小数精确度 ；unique="false"：唯一约束； update="true"：能否更新值 ； length:只能用于string -->
+		<property name="name" type="java.lang.String">
+			<column name="NAME" />
+		</property>
+		<property name="age" type="java.lang.Integer">
+			<column name="AGE" />
+		</property>
+		<property name="sex" type="java.lang.String">
+			<column name="SEX" />
+		</property>
+		<property name="createDate" type="java.util.Date" >
+			<column name="CREATE_DATE" />
+		</property>
+	</class>
+	<query name="myselectbyid"><![CDATA[from user where id=?0 ]]></query>
+	 
+</hibernate-mapping>

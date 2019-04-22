@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping package="com.yyt.hibernateHello.bean">
+	<class name="Customer" table="CUSTOMER" >
+		<id name="id" type="java.lang.Integer">
+			<column name="ID" />
+			<generator class="native" />
+		</id>
+		<property name="name" type="java.lang.String">
+			<column name="NAME" />
+		</property>
+
+		<!-- inverse="true":放弃维护关联关系 
+		order-by : 如果设置了该属性, 当 Hibernate 通过 select 
+			语句到数据库中检索集合对象时, 利用 order by 子句以字段进行排序 order-by 属性中还可以加入 SQL 函数 
+		cascade:设置级联关系 
+		lazy="true":设置集合被初始化的时机,值为extra时会尽可能延迟初始化时机 
+		fetch="join":值为join时lazy属性会被忽略,query中的list方法会忽略映射配置文件中的迫切左外连接策略而使用延时加载策略
+		          此属性为select:正常方式查询
+		          subselect时决定使用查询集合语句的方式 ：以子查询的方式获取set,此时batch-size失效
+		batch-size="": 值为一次初始化集合数量
+		-->
+		<set name="order" table="order">
+			<key column="Customer_ID"></key>
+			<one-to-many class="Order" />
+		</set>
+
+	</class>
+</hibernate-mapping>
